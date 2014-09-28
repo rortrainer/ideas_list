@@ -15,13 +15,17 @@
         <td><%= idea.name %></td>
         <td><%= idea.description %></td>
         <td><%= format_date(idea.created_at) %></td>
-        <td><%= link_to 'Show', idea %></td>
+        <td><%= link_to 'Show', idea, :remote => true %></td>
         <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
         <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @ideas %>
+
+<%= link_to 'Test', "#", :onclick => "test()" %>
 
 <br>
 
@@ -31,9 +35,17 @@
   </div>
 <% end %>
 
-<%= link_to 'New Idea', new_idea_path %>
+<%= link_to 'New Idea', new_idea_path, :remote => true %>
 
 
+<div id="display-form">
+</div>
+
+<script>
+  function test(){
+    alert("here");
+  }
+</script>
 
 
 

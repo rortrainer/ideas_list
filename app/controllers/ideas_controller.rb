@@ -1,10 +1,10 @@
 class IdeasController < ApplicationController
-  before_action :set_idea, only: [:show, :edit, :update, :destroy]
+  before_action :set_idea, except: [:index, :new]
 
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.all
+    @ideas = Idea.paginate(:page => params[:page], :per_page => 2)
   end
 
   # GET /ideas/1
@@ -25,16 +25,21 @@ class IdeasController < ApplicationController
   # POST /ideas.json
   def create
     @idea = Idea.new(idea_params)
-
-    respond_to do |format|
-      if @idea.save
-        format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
-        format.json { render :show, status: :created, location: @idea }
-      else
-        format.html { render :new }
-        format.json { render json: @idea.errors, status: :unprocessable_entity }
-      end
-    end
+    if @idea.save
+      redirect_to @idea, notice: 'Idea was successfully created.'  
+    else
+      
+    end 
+    
+    #respond_to do |format|
+     # if @idea.save
+      #  format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
+       # format.json { render :show, status: :created, location: @idea }
+     # else
+      #  format.html { render :new }
+       # format.json { render json: @idea.errors, status: :unprocessable_entity }
+      #end
+    #end
   end
 
   # PATCH/PUT /ideas/1
